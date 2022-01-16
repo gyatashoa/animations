@@ -12,11 +12,13 @@ class MyPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     final devSize = MediaQuery.of(context).size;
     return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xff614385), Color(0xff6dd5ed)])),
+      decoration: const BoxDecoration(color: Color(0xff3B3B3B)
+          // gradient: LinearGradient(
+          //     begin: Alignment.topCenter,
+          //     end: Alignment.bottomCenter,
+          //     colors: [Colors.black, Colors.black45])
+
+          ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(
