@@ -1,6 +1,8 @@
 import 'package:animations/page_view_with_animation/hotel_model.dart';
 import 'package:flutter/material.dart';
 
+import 'hotel_detail_screen.dart';
+
 class HotelCard extends StatefulWidget {
   HotelCard({Key? key, required this.index, required this.hotel})
       : super(key: key);
@@ -49,7 +51,13 @@ class _HotelCardState extends State<HotelCard>
           });
         }
       },
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context)
+            .push(PageRouteBuilder(pageBuilder: (ctx, anim1, anim2) {
+          return FadeTransition(
+              opacity: anim1, child: HotelDetailScreen(hotel: widget.hotel));
+        }));
+      },
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -62,8 +70,83 @@ class _HotelCardState extends State<HotelCard>
                 child: Container(
                   width: devSize.width * .75,
                   height: devSize.height * .6,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 2),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Row(
+                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Icon(
+                                    Icons.location_on,
+                                    color: Colors.black,
+                                  ),
+                                  Text(
+                                    widget.hotel.location,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: RichText(
+                                    text: TextSpan(
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        text: 'Price:\t',
+                                        children: [
+                                      TextSpan(
+                                          text: widget.hotel.price,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                          ))
+                                    ])),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Row(
+                          children: [
+                            for (var i = 1; i < 6; i++)
+                              i < widget.hotel.rating
+                                  ? const Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                      size: 20,
+                                    )
+                                  : const Icon(
+                                      Icons.star_border,
+                                      color: Colors.yellow,
+                                      size: 20,
+                                    ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(.3),
+                            blurRadius: 8,
+                            spreadRadius: 1,
+                            offset: const Offset(0, 2)),
+                      ],
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
                       color: Colors.white),
                 ),
               ),
